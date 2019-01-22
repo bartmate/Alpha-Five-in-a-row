@@ -1,4 +1,4 @@
-# Alpha-Five-in-a-row Zero
+# Amoeba Zero
 Summary: AI Playing Five-in-a-row, based on AlphaGo Zero algorithms.
 
 ## Five-in-a-row
