@@ -40,6 +40,20 @@ class Game:
         self.winner = 0
         self.next = 3-self.next
         
+    def fill_grids_for_nn(gridx, grido, gridnext, gridlast):
+        for x in range(15):
+            for y in range(15):
+                gridx[x,y] = 0
+                if self.grid[x,y]==1:
+                    gridx[x,y] = 1
+                grido[x,y] = 0
+                if self.grid[x,y]==2:
+                    grido[x,y] = 1
+                gridnext[x,y] = self.next                
+                gridlast[x,y] = 0
+        if self.nr>0:
+            gridlast[self.moves[self.nr-1,0], self.moves[self.nr-1,1]] = 1                 
+        
     def check_win(self,x,y,curr):
         #horizontal
         l = 1
