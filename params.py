@@ -1,11 +1,11 @@
 #Nr. of Simulation in MTCS
-MTCS_NR   = 256     
+MCTS_NR   = 256    
 
 #Temperature for controlling exploration
-MTCS_TAU  = 0.1     
+MCTS_TAU  = 0.5
 
 #Competitieve play: Chosing the node with maximal N (equivalent to TAU = infinitesimally small)
-MTCS_COMP = False   
+MCTS_COMP = True   
 
 #Coefficient for U in Q+U
-MTCS_U_COEFF = 2.0
+MCTS_U_COEFF = 2.0
