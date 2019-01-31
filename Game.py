@@ -32,6 +32,14 @@ class Game:
         self.next = 3-self.next
         return self.winner
         
+    def unmove(self):
+        self.nr -= 1
+        x = self.moves[self.nr,0] #some garbage remains, but it does not count (in theory)
+        y = self.moves[self.nr,1]
+        self.grid[x,y]=0
+        self.winner = 0
+        self.next = 3-self.next
+        
     def check_win(self,x,y,curr):
         #horizontal
         l = 1
