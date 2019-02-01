@@ -9,3 +9,14 @@ MCTS_COMP = True
 
 #Coefficient for U in Q+U
 MCTS_U_COEFF = 2.0
+
+####################################
+
+# Number of features in each conv layer
+MODEL_FEATNR = 16
+
+# Number of hidden units in value head
+MODEL_HIDDENNR = 64
+
+# Number of conv layers
+MODEL_CONVNR = 5

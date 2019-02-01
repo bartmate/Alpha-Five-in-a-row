@@ -2,8 +2,11 @@ from keras.models import Model
 from keras.layers import *
 from keras.optimizers import Adam
 
-FEATNR = 16
-HIDDENNR = 64
+import params
+
+FEATNR   = params.MODEL_FEATNR
+HIDDENNR = params.MODEL_HIDDENNR
+CONVNR   = params.MODEL_CONVNR
 
 class AmoebaZeroModel:
     def __init__(self):  
@@ -12,78 +15,34 @@ class AmoebaZeroModel:
         # The NN model
         inp = Input((15,15,4))
 
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(inp)
+        #1st conv layer
+        x = Conv2D(FEATNR, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(inp)
         x = BatchNormalization()(x)
         x = Activation('relu')(x)
 
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
+        #middle conv layers
+        for i in range(CONVNR-2):                
+            x = Conv2D(FEATNR, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(x)
+            x = BatchNormalization()(x)
+            x = Activation('relu')(x)
 
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
-        x = BatchNormalization()(x)
-        x = Activation('relu')(x)
-
-        x = Conv2D(FEATNR, (3, 3), padding = 'SAME')(x)
+        #last conv layer
+        x = Conv2D(FEATNR, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(x)
         x = BatchNormalization()(x)
         base = Activation('relu')(x)
         
-        x1 = Conv2D(1, (3, 3), padding = 'SAME')(base)
+        x1 = Conv2D(1, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(base)
         x1 = BatchNormalization()(x1)
         x1 = Activation('relu')(x1)
         x1 = Flatten()(x1)
-        out_p = Dense(225, activation = 'softmax', name = 'out_p')(x1)
+        out_p = Dense(225, activation = 'softmax', name = 'out_p', kernel_regularizer=regularizers.l2(0.01))(x1)
         
-        x2 = Conv2D(1, (3, 3), padding = 'SAME')(base)
+        x2 = Conv2D(1, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(base)
         x2 = BatchNormalization()(x2)
         x2 = Activation('relu')(x2)
         x2 = Flatten()(x2)
-        x2 = Dense(HIDDENNR, activation = 'relu')(x2)
-        out_v = Dense(1, activation = 'sigmoid', name = 'out_v')(x2)
+        x2 = Dense(HIDDENNR, activation = 'relu', kernel_regularizer=regularizers.l2(0.01))(x2)
+        out_v = Dense(1, activation = 'sigmoid', name = 'out_v', kernel_regularizer=regularizers.l2(0.01))(x2)
         
         self.model = Model(inputs = inp, outputs = [out_p,out_v])
         
