@@ -59,7 +59,7 @@ class Game:
         if self.nr>0:
             nn_input[ind,self.moves[self.nr-1,0], self.moves[self.nr-1,1],3] = 1                 
             
-    def get_final_value():
+    def get_final_value(self):
         assert (self.winner != 0), "ERROR: Game has not been ended, no final value yet."
             
         if self.winner == X:

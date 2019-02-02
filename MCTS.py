@@ -30,10 +30,10 @@ class MCTS:
         self.root_node = node
         self.game = copy.deepcopy(game)
             
-    def select_move(self):
+    def select_move(self, competitive = False):
         for i in range(params.MCTS_NR):
             self.reach_leaf_node_and_update_edges_and_extend()
-        if params.MCTS_COMP:
+        if competitive:
             maxN = -1
             arr = []
             for edge in self.root_node.edges:
