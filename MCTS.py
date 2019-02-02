@@ -25,6 +25,10 @@ class MCTS:
             self.root_node = Node()
         self.game = copy.deepcopy(game)
         self.evaluator = evaluator   
+    
+    def reinit(self, game, node):
+        self.root_node = node
+        self.game = copy.deepcopy(game)
             
     def select_move(self):
         for i in range(params.MCTS_NR):
@@ -93,4 +97,20 @@ class MCTS:
             v = 1 - v 
             self.game.unmove()
             
+    def fill_p(self, p, ind = 0):
+        for x in range(15):
+            for y in  range(15):
+                if self.game.grid[x,y] == 0:
+                    p[ind,x*15+y] = 1.0
+                else:
+                    p[ind,x*15+y] = 0.0
+        for i in range(len(self.root_node.edges)):
+            x = self.root_node.edges[i].act_x
+            y = self.root_node.edges[i].act_y                
+            p[ind,x*15+y] *= float(self.root_node.edges[i].N)**(1.0/params.MCTS_TAU)
+        s = np.sum(p[ind,:])
+        if s>0:
+            p[ind,:] /= s
+
+
             
