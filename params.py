@@ -1,5 +1,5 @@
 #Nr. of Simulation in MTCS
-MCTS_NR   = 32 #256    
+MCTS_NR   = 128 #256    
 
 #Temperature for controlling exploration
 MCTS_TAU  = 0.5
@@ -24,13 +24,13 @@ MODEL_CONVNR = 5
 PIPELINE_HISTORY_SIZE     = 100000 
 
 # Batch size
-PIPELINE_BATCH_SIZE       = 16 #256
+PIPELINE_BATCH_SIZE       = 32 #256
 
 # Evaluating the trained network after so many training steps
 PIPELINE_TRAINING_LOOP_NR = 100 #1000
 
 # Playing so many games with the current best model to generate training data
-PIPELINE_SELFPLAY_NR      = 10 #100
+PIPELINE_SELFPLAY_NR      = 100 #100
 
 # Playing so many games to decide if the trained modell is better than the best-so-far model
 PIPELINE_EVAL_NR          = 40
