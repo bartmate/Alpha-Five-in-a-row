@@ -138,7 +138,7 @@ class Game:
     
     
     def print(self):
-        print("abcdefghijklmnopq")
+        print(" abcdefghijklmno ")
         print("-----------------")
         for y in range(15):
             s = '|'
