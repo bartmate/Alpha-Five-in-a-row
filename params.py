@@ -16,7 +16,7 @@ MODEL_FEATNR = 8 #16
 MODEL_HIDDENNR = 16 #64
 
 # Number of conv layers
-MODEL_CONVNR = 3 #5
+MODEL_CONVNR = 5
 
 ####################################
 
@@ -24,13 +24,13 @@ MODEL_CONVNR = 3 #5
 PIPELINE_HISTORY_SIZE     = 100000 
 
 # Batch size
-PIPELINE_BATCH_SIZE       = 64 #256
+PIPELINE_BATCH_SIZE       = 16 #256
 
 # Evaluating the trained network after so many training steps
 PIPELINE_TRAINING_LOOP_NR = 100 #1000
 
 # Playing so many games with the current best model to generate training data
-PIPELINE_SELFPLAY_NR      = 3 #100
+PIPELINE_SELFPLAY_NR      = 10 #100
 
 # Playing so many games to decide if the trained modell is better than the best-so-far model
 PIPELINE_EVAL_NR          = 40
