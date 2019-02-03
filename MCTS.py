@@ -72,13 +72,15 @@ class MCTS:
         
         p = None
         if self.game.winner == 1:   # X
-            v = 0.0
+            v = 1.0 #From the perspective of the player who has just played
         elif self.game.winner == 2: # O
-            v = 1.0
+            v = 1.0 #From the perspective of the player who has just played
         elif self.game.winner == 3: # Draw
-            v = 0.5
+            v = 0.5 #From the perspective of the player who has just played
         else: # Not terminating state
             p,v = self.evaluator(self.game)
+            if self.game.next == 2: #O -> The player who has just played was X
+                v = 1.0 - v
             
         # Extending the current node
         if p is not None:
@@ -94,7 +96,7 @@ class MCTS:
             route[i].N += 1
             route[i].W += v
             route[i].Q = route[i].W / route[i].N
-            v = 1 - v 
+            v = 1.0 - v 
             self.game.unmove()
             
     def fill_p(self, p, ind = 0):
