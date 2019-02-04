@@ -70,10 +70,15 @@ class MCTS:
             curr = edge.result_node
             self.game.move(edge.act_x, edge.act_y)
         
+        #In MTCS we use value 1.0 if the next player will win in 100%
+        #and 0.0 if the next player will win in 0% (i.e. they [he or she] will lose)
+        #
+        #So the value depend on the fact who is the next player
+        #However the NN gives an absolute value independently on the next player:
+        #0.0 - X will win; 1.0 - O will win.
+        
         p = None
-        if self.game.winner == 1:   # X
-            v = 1.0 #From the perspective of the player who has just played
-        elif self.game.winner == 2: # O
+        if self.game.winner == 1 or self.game.winner == 2:   # X or O
             v = 1.0 #From the perspective of the player who has just played
         elif self.game.winner == 3: # Draw
             v = 0.5 #From the perspective of the player who has just played
@@ -84,12 +89,17 @@ class MCTS:
             
         # Extending the current node
         if p is not None:
+            s = 0.0
             for x in range(15):
                 for y in  range(15):
                     if self.game.grid[x,y] == 0:
                         n = Node()
                         e = Edge(x,y,n,p[x,y])
                         curr.edges.append(e)
+                        s += p[x,y]
+            if s!=0:
+                for e in curr.edges:
+                    e.P /= s
         
         # Update edges on the route
         for i in range( len(route)-1, -1, -1):
