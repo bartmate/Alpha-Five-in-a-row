@@ -109,11 +109,11 @@ class Pipeline:
             while (g.winner==0):
                 if nr%2==0:
                     mcts = MCTS(g, self.model_best.evaluate)
-                    x,y,_ = mcts.select_move(competitive = True)
+                    x,y,_ = mcts.select_move()
                     g.move(x,y)
                 else:
                     mcts = MCTS(g, self.model_trained.evaluate)
-                    x,y,_ = mcts.select_move(competitive = True)
+                    x,y,_ = mcts.select_move()
                     g.move(x,y)
                 nr+=1
                 if i==0 and self.verbose>=4:
@@ -136,11 +136,11 @@ class Pipeline:
             while (g.winner==0):
                 if nr%2==0:
                     mcts = MCTS(g, self.model_trained.evaluate)
-                    x,y,_ = mcts.select_move(competitive = True)
+                    x,y,_ = mcts.select_move()
                     g.move(x,y)
                 else:
                     mcts = MCTS(g, self.model_best.evaluate)
-                    x,y,_ = mcts.select_move(competitive = True)
+                    x,y,_ = mcts.select_move()
                     g.move(x,y)
                 nr+=1
                 if i==0 and self.verbose>=4:
@@ -157,6 +157,7 @@ class Pipeline:
         if self.verbose >= 1:
             print("Total result: ",balance," Thr.: ",THRESHOLD)
                 
+        #return balance >= THRESHOLD
         return balance >= THRESHOLD
            
         
