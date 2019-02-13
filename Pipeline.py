@@ -3,7 +3,7 @@ import copy
 import keras.models
 
 from MCTS import MCTS
-from Game import Game 
+from Game import * 
 from model import AmoebaZeroModel
 import params
 
@@ -18,11 +18,11 @@ class Pipeline:
     def __init__(self, verbose = 0):
         self.verbose = verbose
         
-        self.history_input = np.zeros( (HISTORY_SIZE,15,15,4))
-        self.history_p     = np.zeros( (HISTORY_SIZE,225))
+        self.history_input = np.zeros( (HISTORY_SIZE,N,N,4))
+        self.history_p     = np.zeros( (HISTORY_SIZE,NN))
         self.history_v     = np.zeros( (HISTORY_SIZE))
-        self.batch_input   = np.zeros( (BATCH_SIZE,15,15,4))
-        self.batch_p       = np.zeros( (BATCH_SIZE,225))
+        self.batch_input   = np.zeros( (BATCH_SIZE,N,N,4))
+        self.batch_p       = np.zeros( (BATCH_SIZE,NN))
         self.batch_v       = np.zeros( (BATCH_SIZE))
         self.next_index    = 0
         self.history_nr    = 0

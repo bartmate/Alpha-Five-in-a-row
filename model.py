@@ -2,6 +2,7 @@ from keras.models import Model
 from keras.layers import *
 from keras.optimizers import Adam
 
+from Game import N,NN
 import params
 
 FEATNR   = params.MODEL_FEATNR
@@ -10,10 +11,10 @@ CONVNR   = params.MODEL_CONVNR
 
 class AmoebaZeroModel:
     def __init__(self):  
-        self.input = np.zeros((1,15,15,4)) #Input for evaulating one position
+        self.input = np.zeros((1,N,N,4)) #Input for evaulating one position
         
         # The NN model
-        inp = Input((15,15,4))
+        inp = Input((N,N,4))
 
         #1st conv layer
         x = Conv2D(FEATNR, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(inp)
@@ -35,7 +36,7 @@ class AmoebaZeroModel:
         x1 = BatchNormalization()(x1)
         x1 = Activation('relu')(x1)
         x1 = Flatten()(x1)
-        out_p = Dense(225, activation = 'softmax', name = 'out_p', kernel_regularizer=regularizers.l2(0.01))(x1)
+        out_p = Dense(NN, activation = 'softmax', name = 'out_p', kernel_regularizer=regularizers.l2(0.01))(x1)
         
         x2 = Conv2D(1, (3, 3), padding = 'SAME', kernel_regularizer=regularizers.l2(0.01))(base)
         x2 = BatchNormalization()(x2)
@@ -57,7 +58,7 @@ class AmoebaZeroModel:
     def evaluate(self, game, verbose = 0):
         game.fill_grids_for_nn(self.input)
         pred = self.model.predict(self.input, verbose = verbose)
-        return pred[0][0].reshape((15,15)), pred[1][0][0]
+        return pred[0][0].reshape((N,N)), pred[1][0][0]
     
     
     def train(self,X,Y,batch_size = 64, epoch_nr = 1):

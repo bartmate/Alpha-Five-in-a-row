@@ -10,13 +10,13 @@ MCTS_U_COEFF = 1.0
 ####################################
 
 # Number of features in each conv layer
-MODEL_FEATNR = 64
+MODEL_FEATNR = 32
 
 # Number of hidden units in value head
 MODEL_HIDDENNR = 32 #64
 
 # Number of conv layers
-MODEL_CONVNR = 15
+MODEL_CONVNR = 5
 
 ####################################
 
@@ -24,13 +24,13 @@ MODEL_CONVNR = 15
 PIPELINE_HISTORY_SIZE     = 100000 
 
 # Batch size
-PIPELINE_BATCH_SIZE       = 32 #256
+PIPELINE_BATCH_SIZE       = 16 #256
 
 # Evaluating the trained network after so many training steps
-PIPELINE_TRAINING_LOOP_NR = 40 #1000
+PIPELINE_TRAINING_LOOP_NR = 10 #1000
 
 # Playing so many games with the current best model to generate training data
-PIPELINE_SELFPLAY_NR      = 40 #100
+PIPELINE_SELFPLAY_NR      = 50 #100
 
 # Playing so many games to decide if the trained modell is better than the best-so-far model
 PIPELINE_EVAL_NR          = 20
