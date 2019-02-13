@@ -1,13 +1,13 @@
 import numpy as np
 
 # Width/height of the grid
-N = 5
+N = 7
 
 # Grid-width square
 NN = N*N
 
 # Number of X-s (or O-s) to win
-WN = 3
+WN = 4
 
 EMPTY = 0
 X = 1
