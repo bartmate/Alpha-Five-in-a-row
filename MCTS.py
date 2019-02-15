@@ -48,8 +48,12 @@ class MCTS:
             prob=np.zeros( (len(self.root_node.edges)) )
             for i in range(len(self.root_node.edges)):
                 prob[i] = float(self.root_node.edges[i].N)**(1.0/params.MCTS_TAU)
-            prob /= sum(prob)
-            index = np.random.choice( len(self.root_node.edges), p=prob)
+            sp = sum(prob)
+            if sp != 0: 
+                prob /= sp
+                index = np.random.choice( len(self.root_node.edges), p=prob)
+            else:
+                index = np.random.randint( 0, len(self.root_node.edges) )
             edge = self.root_node.edges[index]
 
         return edge.act_x, edge.act_y, edge.result_node
@@ -66,8 +70,12 @@ class MCTS:
                 Q = curr.edges[i].Q
                 U = params.MCTS_U_COEFF * curr.edges[i].P * np.sqrt(sn) / (1.0 + curr.edges[i].N)
                 prob[i] = Q + U
-            prob /= sum(prob)
-            index = np.random.choice( len(curr.edges), p=prob)
+            sp = sum(prob)
+            if sp != 0: 
+                prob /= sp
+                index = np.random.choice( len(curr.edges), p=prob)
+            else:
+                index = np.random.randint(0, len(curr.edges))
             edge = curr.edges[index]
             route.append(edge)
             curr = edge.result_node
