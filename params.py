@@ -2,7 +2,7 @@
 MCTS_NR   = 100 #256    
 
 #Temperature for controlling exploration
-MCTS_TAU  = 0.001
+MCTS_TAU  = 0.1
 
 #Coefficient for U in Q+U
 MCTS_U_COEFF = 1.0
