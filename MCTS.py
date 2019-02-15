@@ -59,9 +59,12 @@ class MCTS:
         route = []
         while len(curr.edges) != 0:
             prob=np.zeros( (len(curr.edges)) )
+            sn = 0
+            for i in range(len(curr.edges)):
+                sn += curr.edges[i].N
             for i in range(len(curr.edges)):
                 Q = curr.edges[i].Q
-                U = params.MCTS_U_COEFF * curr.edges[i].P / (1.0 + curr.edges[i].N)
+                U = params.MCTS_U_COEFF * curr.edges[i].P * np.sqrt(sn) / (1.0 + curr.edges[i].N)
                 prob[i] = Q + U
             prob /= sum(prob)
             index = np.random.choice( len(curr.edges), p=prob)
